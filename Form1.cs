@@ -8,72 +8,91 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WIPS
+namespace Parser
 {
-    public partial class Form1 : Form
+    public partial class frm_1 : Form
     {
-        public Form1()
+        public frm_1()
         {
             InitializeComponent();
-            initializeChildWindows();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            classifyTokens(richTextBox1.Text.Split(' ', '\n'));
+            displayTokens();
+        }
+
+        private LinkedList<Token> classifiedTokens;
+        private void classifyTokens(String[] tokens)
+        {
+            classifiedTokens = new LinkedList<Token>();
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                switch (tokens[i])
+                {
+                    case "LOD":
+                    case "STR":
+                    case "SAV":
+                        classifiedTokens.AddLast(new Token(tokens[i], "DATA TRANSFER INSTRUCTION", "01010101"));
+                        break;
+                    case "INC":
+                    case "DEC":
+                    case "ADD":
+                    case "SUB":
+                    case "MUL":
+                    case "DIV":
+                        classifiedTokens.AddLast(new Token(tokens[i], "ARITHMETIC INSTRUCTIONS", "00001100"));
+                        break;
+                    default:
+                        classifiedTokens.AddLast(new Token(tokens[i], "UFO", "shitty-byte"));
+                        break;
+
+                    //Ken voluntered to finish this shit.
+
+                }
+            }
+        }
+
+        private void displayTokens()
+        {
+            for (int i = 0; i < classifiedTokens.Count; i++)
+            {
+                dataGridView1.Rows.Add(classifiedTokens.ElementAt(i).getToken(), classifiedTokens.ElementAt(i).getClass());
+            }
+        }
+
+        private LinkedList<Command> commands;
         
-        private Registers register;
-        private SourceCode source;
-        private Cycles cycles;
-        private Pipeline pipeline;
-        private Statistics stats;
-        private Data data;
-
-        private void initializeChildWindows()
+        private void parse()
         {
-            register = new Registers();
-            register.MdiParent = this;
+            commands = new LinkedList<Command>();
 
-            source = new SourceCode();
-            source.MdiParent = this;
+            for (int i = 0; i < classifiedTokens.Count; i++)
+            {
+                switch (classifiedTokens.ElementAt(i).getClass())
+                {
+                    case "DATA TRANSFER INSTRUCTION":
+                    case "ARITHMETIC INSTRUCTION":
+                        if (classifiedTokens.ElementAt(i + 1).getClass().Equals("REGISTER"))
+                        {
+                            if (classifiedTokens.ElementAt(i + 2).getClass().Equals("REGISTER"))
+                            {
+                                commands.AddLast(new Command(classifiedTokens.ElementAt(i).getToken(), classifiedTokens.ElementAt(i + 1).getToken(), classifiedTokens.ElementAt(i+2).getToken()));
+                            }
+                            else
+                            {
+                                //prompt error: register name expected after tokens[i]
+                            }
+                        }
+                        else
+                        {
+                            //prompt error: register name expected after tokens[i]
+                        }
+                        break;
+                }
+            }
 
-            cycles = new Cycles();
-            cycles.MdiParent = this;
-
-            pipeline = new Pipeline();
-            pipeline.MdiParent = this;
-
-            stats = new Statistics();
-            stats.MdiParent = this;
-
-            data = new Data();
-            data.MdiParent = this;
-
-            register.Show();
-            source.Show();
-            cycles.Show();
-            pipeline.Show();
-            stats.Show();
-            data.Show();
-            
-        }
-
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SourceCode viewer = new SourceCode();
-            viewer.MdiParent = this;
-            viewer.Show();
-        }
-
-        private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
-        }
-
-        private void tileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
-        }
-
-        private void arraToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.LayoutMdi(System.Windows.Forms.MdiLayout.ArrangeIcons);
         }
     }
 }

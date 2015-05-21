@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WIPS.Properties
+namespace Parser.Properties
 {
 
 
