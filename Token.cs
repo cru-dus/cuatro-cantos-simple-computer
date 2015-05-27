@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Parser
+namespace WIPS
 {
     class Token
     {
@@ -12,11 +12,12 @@ namespace Parser
         private String classification;
         private String code;
 
-        public Token(String token, String classification, String code)
+        public Token(String token)
         {
             this.token = token;
-            this.classification = classification;
-            this.code = code;
+            this.code = Code.getCode(this.token);
+            this.classification = Code.getInstructionType(this.code.Substring(0, 4));
+            
         }
 
         public String getToken()
@@ -24,7 +25,7 @@ namespace Parser
             return this.token;
         }
 
-        public String getClass()
+        public String getClassification()
         {
             return this.classification;
         }

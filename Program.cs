@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Parser
+namespace WIPS
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Parser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_1());
+            Application.Run(new Form_Main());
         }
     }
 }

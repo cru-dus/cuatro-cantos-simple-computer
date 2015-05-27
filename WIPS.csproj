@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1573C4EA-843A-4BCF-A9C8-2E1931771486}</ProjectGuid>
+    <ProjectGuid>{825CFC61-7C0B-4040-B693-F964A61D964E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Parser</RootNamespace>
-    <AssemblyName>Parser</AssemblyName>
+    <RootNamespace>WIPS</RootNamespace>
+    <AssemblyName>WIPS</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,18 +46,71 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code.cs" />
     <Compile Include="Command.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Form_Console.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Form_Console.Designer.cs">
+      <DependentUpon>Form_Console.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Cycles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Cycles.Designer.cs">
+      <DependentUpon>Form_Cycles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Data.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Data.Designer.cs">
+      <DependentUpon>Form_Data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Pipeline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Pipeline.Designer.cs">
+      <DependentUpon>Form_Pipeline.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.cs" />
+    <Compile Include="Form_Registers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Registers.Designer.cs">
+      <DependentUpon>Form_Registers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_SourceCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_SourceCode.Designer.cs">
+      <DependentUpon>Form_SourceCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Statistics.Designer.cs">
+      <DependentUpon>Form_Statistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="Token.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Console.resx">
+      <DependentUpon>Form_Console.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Cycles.resx">
+      <DependentUpon>Form_Cycles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Pipeline.resx">
+      <DependentUpon>Form_Pipeline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +121,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Form_Registers.resx">
+      <DependentUpon>Form_Registers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_SourceCode.resx">
+      <DependentUpon>Form_SourceCode.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
