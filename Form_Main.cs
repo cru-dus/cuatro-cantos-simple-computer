@@ -22,6 +22,8 @@ namespace WIPS
         private Form_SourceCode source;
         private Form_Cycles cycles;
         private Form_Pipeline pipeline;
+        private Form_Registers registers;
+        private Form_Statistics stats;
         private String sourceCode;
         private Form_Console console;
         private LinkedList<Token> classifiedTokens;
@@ -47,10 +49,18 @@ namespace WIPS
             console = new Form_Console();
             console.MdiParent = this;
 
+            stats = new Form_Statistics();
+            stats.MdiParent = this;
+
+            registers = new Form_Registers();
+            registers.MdiParent = this;
+
             source.Show();
             cycles.Show();
             pipeline.Show();
-            console.Show(); 
+            console.Show();
+            stats.Show();
+            registers.Show();
         }
 
         private async void newToolStripMenuItem_Click(object sender, EventArgs e)

@@ -58,6 +58,7 @@ namespace WIPS
             }
 
             tbpanel.ColumnCount++;
+            tbpanel.AutoScrollPosition = new Point(tbpanel.HorizontalScroll.Maximum, 0);
         }
     }
 }

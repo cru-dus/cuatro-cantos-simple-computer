@@ -1,0 +1,14 @@
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\bin\Debug\WIPS.exe.config
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\bin\Debug\WIPS.exe
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\bin\Debug\WIPS.pdb
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.Form_Console.resources
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.Form_Cycles.resources
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.Form_Main.resources
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.Form_Pipeline.resources
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.Properties.Resources.resources
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.Form_Registers.resources
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.Form_SourceCode.resources
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.csproj.GenerateResource.Cache
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.exe
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.pdb
+C:\Users\CP\Desktop\cuatro-cantos-simple-computer\obj\Debug\WIPS.csprojResolveAssemblyReference.cache
