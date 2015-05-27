@@ -34,10 +34,12 @@
             // rtb_code
             // 
             this.rtb_code.AcceptsTab = true;
+            this.rtb_code.BackColor = System.Drawing.Color.Black;
             this.rtb_code.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.rtb_code.DetectUrls = false;
             this.rtb_code.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtb_code.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtb_code.ForeColor = System.Drawing.Color.White;
             this.rtb_code.Location = new System.Drawing.Point(0, 0);
             this.rtb_code.Name = "rtb_code";
             this.rtb_code.ReadOnly = true;
@@ -46,13 +48,13 @@
             this.rtb_code.Text = "";
             this.rtb_code.WordWrap = false;
             // 
-            // SourceCode
+            // Form_SourceCode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 262);
             this.Controls.Add(this.rtb_code);
-            this.Name = "SourceCode";
+            this.Name = "Form_SourceCode";
             this.Text = "Code";
             this.ResumeLayout(false);
 

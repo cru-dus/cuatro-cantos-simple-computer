@@ -104,7 +104,7 @@ namespace WIPS
         //Tokenize each input element and store each of them as object
         private void classifyTokens(String[] lines)
         {
-            
+            console.addMessage("Tokenizing...");
             toContinue = true;
             for (int x = 0; x < lines.Length; x++)
             {
@@ -129,8 +129,14 @@ namespace WIPS
                             case "R7": case "MAR0": case "MAR1":
                                 classifiedTokens.AddLast(new Token(tokens[i]));
                                 break;
+                            
                             //Default case
                             default:
+                                byte val;
+                                if(byte.TryParse(tokens[i], out val)){
+                                    classifiedTokens.AddLast(new Token(val, "DATA"));
+                                    break;
+                                }
                                 toContinue = false;
                                 console.addMessage("Invalid token: " + tokens[i]);
                                 break;
@@ -138,6 +144,7 @@ namespace WIPS
                     }
                 }
             }
+            console.addMessage("Tokenizing ended.");
             
         }
 
@@ -146,12 +153,98 @@ namespace WIPS
         private void parse()
         {
             if (toContinue)
+            {
+                console.addMessage("Parsing...");
                 for (int i = 0; i < classifiedTokens.Count; i++)
                 {
-
-                    switch (classifiedTokens.ElementAt(i).getClassification())
+                    if(!toContinue)return;
+                    Token t = classifiedTokens.ElementAt(i);
+                    switch (t.getClassification())
                     {
                         case "DATA TRANSFER":
+                            switch (t.getToken())
+                            {
+                                case "LOD":
+                                    if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("GENERAL PURPOSE REGISTER"))
+                                    {
+                                        if (classifiedTokens.ElementAt(i + 2).getClassification().Equals("ADDRESS REGISTER"))
+                                        {
+                                            String code = t.getCode() +
+                                                classifiedTokens.ElementAt(i+1).getCode() +
+                                                classifiedTokens.ElementAt(i+2).getCode();
+                                            commands.AddLast(new Command(t.getToken(), 
+                                                classifiedTokens.ElementAt(i+1).getToken(), 
+                                                classifiedTokens.ElementAt(i+2).getToken(),
+                                                code
+                                                ));
+                                        }
+                                        else
+                                        {
+                                            console.addMessage("Memory address register expected after " + classifiedTokens.ElementAt(i + 1).getToken());
+                                            toContinue = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        console.addMessage("General purpose register expected after " + t.getToken());
+                                        toContinue = false;
+                                    }
+                                    break;
+                                case "SAV":
+                                    if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("GENERAL PURPOSE REGISTER"))
+                                    {
+                                        if (classifiedTokens.ElementAt(i + 2).getClassification().Equals("DATA"))
+                                        {
+                                            String code = t.getCode() +
+                                                classifiedTokens.ElementAt(i+1).getCode() +
+                                                classifiedTokens.ElementAt(i+2).getCode();
+                                            commands.AddLast(new Command(t.getToken(), 
+                                                classifiedTokens.ElementAt(i+1).getToken(), 
+                                                classifiedTokens.ElementAt(i+2).getToken(),
+                                                code
+                                                ));
+                                        }
+                                        else
+                                        {
+                                            console.addMessage("Integer data expected after " + classifiedTokens.ElementAt(i + 1).getToken());
+                                            toContinue = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        console.addMessage("General purpose register expected after " + t.getToken());
+                                        toContinue = false;
+                                    }
+                                    break;
+                                case "STR":
+                                    if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("ADDRESS REGISTER"))
+                                    {
+                                        if (classifiedTokens.ElementAt(i + 2).getClassification().Equals("GENERAL PURPOSE REGISTER"))
+                                        {
+                                            String code = t.getCode() +
+                                                classifiedTokens.ElementAt(i+1).getCode() +
+                                                classifiedTokens.ElementAt(i+2).getCode();
+                                            commands.AddLast(new Command(t.getToken(), 
+                                                classifiedTokens.ElementAt(i+1).getToken(), 
+                                                classifiedTokens.ElementAt(i+2).getToken(),
+                                                code
+                                                ));
+                                        }
+                                        else
+                                        {
+                                            console.addMessage("General purpose register expected after " + classifiedTokens.ElementAt(i + 1).getToken());
+                                            toContinue = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        console.addMessage("Memory address register expected after " + t.getToken());
+                                        console.addMessage("FOUND: " + classifiedTokens.ElementAt(i + 1).getToken());
+                                        toContinue = false;
+                                    }
+                                    break;
+                            }
+                            break;
                         case "ARITHMETIC":
                         case "COMPARISON":
                         case "LOGIC":
@@ -159,14 +252,14 @@ namespace WIPS
                             {
                                 if (classifiedTokens.ElementAt(i + 2).getClassification().Contains("REGISTER"))
                                 {
-                                    String a = classifiedTokens.ElementAt(i).getCode();
+                                    String a = t.getCode();
                                     String b = classifiedTokens.ElementAt(i + 1).getCode();
                                     String c = classifiedTokens.ElementAt(i + 2).getCode();
-                                    String binaryCode = a+b+c;
+                                    String binaryCode = a + b + c;
 
-                                    commands.AddLast(new Command(classifiedTokens.ElementAt(i).getToken(),
-                                        classifiedTokens.ElementAt(i + 1).getToken(), 
-                                        classifiedTokens.ElementAt(i + 2).getToken(), 
+                                    commands.AddLast(new Command(t.getToken(),
+                                        classifiedTokens.ElementAt(i + 1).getToken(),
+                                        classifiedTokens.ElementAt(i + 2).getToken(),
                                         binaryCode));
                                 }
                                 else
@@ -186,9 +279,9 @@ namespace WIPS
                             {
                                 String a = classifiedTokens.ElementAt(i).getCode();
                                 String b = classifiedTokens.ElementAt(i + 1).getCode();
-                                String binaryCode = a+b;
+                                String binaryCode = a + b;
 
-                                commands.AddLast(new Command(classifiedTokens.ElementAt(i).getToken(), classifiedTokens.ElementAt(i + 1).getToken(), null, binaryCode));
+                                commands.AddLast(new Command(t.getToken(), classifiedTokens.ElementAt(i + 1).getToken(), null, binaryCode));
                             }
                             else
                             {
@@ -198,12 +291,15 @@ namespace WIPS
                             break;
                     }
                 }
+                console.addMessage("Parsing ended.");
+            }
         }
 
         private void simulate()
         {
             if (toContinue)
             {
+                console.addMessage("Simulating...");
                 //reset
                 resetStateFlags();
                 cycles.reset();
@@ -229,6 +325,7 @@ namespace WIPS
         //Display the command objects
         private void displayCommands()
         {
+            if(toContinue)
             for (int i = 0; i < commands.Count; i++)
             {
                 source.addInstruction(commands.ElementAt(i).getBinaryCode(), 
@@ -248,6 +345,7 @@ namespace WIPS
         private void resetAll()
         {
             //reset all windows
+            console.reset();
             cycles.reset();
             source.reset();
             pipeline.reset();
@@ -261,6 +359,7 @@ namespace WIPS
             //reset all variables
             instructionPointer = 0;
             resetStateFlags();
+            console.addMessage("Reset successful!");
         }
 
         private void singleStepToolStripMenuItem_Click(object sender, EventArgs e)

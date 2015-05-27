@@ -94,9 +94,9 @@ namespace WIPS
                 case 3: return Color.Aqua;
                 case 4:
                 case 5: return Color.Red;
-                case 6: return Color.White;
+                case 6: return Color.Black;
 
-                default: return Color.White;
+                default: return Color.Black;
 
             }
         }

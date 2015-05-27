@@ -56,8 +56,9 @@
             // 
             // rt_instructions
             // 
-            this.rt_instructions.BackColor = System.Drawing.Color.White;
+            this.rt_instructions.BackColor = System.Drawing.Color.Black;
             this.rt_instructions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rt_instructions.ForeColor = System.Drawing.Color.White;
             this.rt_instructions.Location = new System.Drawing.Point(0, 0);
             this.rt_instructions.Name = "rt_instructions";
             this.rt_instructions.ReadOnly = true;
@@ -69,7 +70,7 @@
             // tbpanel
             // 
             this.tbpanel.AutoScroll = true;
-            this.tbpanel.BackColor = System.Drawing.Color.White;
+            this.tbpanel.BackColor = System.Drawing.Color.Black;
             this.tbpanel.ColumnCount = 1;
             this.tbpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 509F));
             this.tbpanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -84,6 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(590, 398);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form_Cycles";

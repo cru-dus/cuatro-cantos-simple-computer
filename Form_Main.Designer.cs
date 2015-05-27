@@ -40,13 +40,6 @@
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cyclesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
@@ -113,14 +106,14 @@
             this.singleStepToolStripMenuItem.Name = "singleStepToolStripMenuItem";
             this.singleStepToolStripMenuItem.ShortcutKeyDisplayString = "F7";
             this.singleStepToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.singleStepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.singleStepToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.singleStepToolStripMenuItem.Text = "Single Step";
             this.singleStepToolStripMenuItem.Click += new System.EventHandler(this.singleStepToolStripMenuItem_Click);
             // 
             // multipleStepToolStripMenuItem
             // 
             this.multipleStepToolStripMenuItem.Name = "multipleStepToolStripMenuItem";
-            this.multipleStepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.multipleStepToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.multipleStepToolStripMenuItem.Text = "Multiple Step";
             // 
             // wiToolStripMenuItem
@@ -128,14 +121,7 @@
             this.wiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cascadeToolStripMenuItem,
             this.tileToolStripMenuItem,
-            this.arraToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.toolStripMenuItem2,
-            this.statisticsToolStripMenuItem,
-            this.dataToolStripMenuItem,
-            this.registersToolStripMenuItem,
-            this.cyclesToolStripMenuItem,
-            this.terminalToolStripMenuItem});
+            this.arraToolStripMenuItem});
             this.wiToolStripMenuItem.Name = "wiToolStripMenuItem";
             this.wiToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.wiToolStripMenuItem.Text = "&Window";
@@ -161,47 +147,6 @@
             this.arraToolStripMenuItem.Text = "Arrange Icons";
             this.arraToolStripMenuItem.Click += new System.EventHandler(this.arraToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(144, 6);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(147, 22);
-            this.toolStripMenuItem2.Text = "1 Code";
-            // 
-            // statisticsToolStripMenuItem
-            // 
-            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.statisticsToolStripMenuItem.Text = "2 Statistics";
-            // 
-            // dataToolStripMenuItem
-            // 
-            this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
-            this.dataToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.dataToolStripMenuItem.Text = "3 Data";
-            // 
-            // registersToolStripMenuItem
-            // 
-            this.registersToolStripMenuItem.Name = "registersToolStripMenuItem";
-            this.registersToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.registersToolStripMenuItem.Text = "4 Registers";
-            // 
-            // cyclesToolStripMenuItem
-            // 
-            this.cyclesToolStripMenuItem.Name = "cyclesToolStripMenuItem";
-            this.cyclesToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.cyclesToolStripMenuItem.Text = "5 Cycles";
-            // 
-            // terminalToolStripMenuItem
-            // 
-            this.terminalToolStripMenuItem.Name = "terminalToolStripMenuItem";
-            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.terminalToolStripMenuItem.Text = "6 Terminal";
-            // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
@@ -222,9 +167,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(791, 521);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.ForeColor = System.Drawing.Color.Black;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form_Main";
@@ -249,13 +196,6 @@
         private System.Windows.Forms.ToolStripMenuItem cascadeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem arraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cyclesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem terminalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetCCMiniComToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;

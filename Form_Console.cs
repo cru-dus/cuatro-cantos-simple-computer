@@ -12,21 +12,24 @@ namespace WIPS
 {
     public partial class Form_Console : Form
     {
-        private const String prefix = "CC-MiniCom >> ";
+        private const String suffix = "CC-MiniCom >> ";
 
         public Form_Console()
         {
             InitializeComponent();
+            reset();
+            addMessage("Welcome to our mini-computer!");
         }
 
         public void addMessage(String message)
         {
-            cmd.AppendText(prefix + message + "\n");
+            cmd.AppendText(message + "\n" + suffix);
         }
 
         public void reset()
         {
             cmd.Clear();
+            cmd.AppendText(suffix);
         }
     }
 }

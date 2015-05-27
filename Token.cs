@@ -20,6 +20,16 @@ namespace WIPS
             
         }
 
+        public Token(byte token, String classification)
+        {
+            this.token = token.ToString();
+            this.classification = classification;
+            if (classification.Equals("DATA"))
+            {
+                this.code = Convert.ToString(token, 2);
+            }
+        }
+
         public String getToken()
         {
             return this.token;

@@ -49,6 +49,7 @@ namespace WIPS
                 Label l = new Label();
                 l.Text = c.getStateName();
                 l.BackColor = c.getStateColor();
+                l.ForeColor = Color.Black;
                 l.Dock = DockStyle.Fill;
                 l.TextAlign = ContentAlignment.MiddleCenter;
 
