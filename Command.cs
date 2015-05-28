@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace WIPS
 {
+    //class for an instruction
     public class Command
     {
         private String instruction;
@@ -104,16 +105,6 @@ namespace WIPS
         public void fetch()
         {
             this.state = 1;
-        }
-
-        public void decode()
-        {
-            
-        }
-
-        public void execute()
-        {
-            
         }
 
         public String getInstruction()

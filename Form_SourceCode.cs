@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace WIPS
 {
+    //winfrom for the source code
     public partial class Form_SourceCode : Form
     {
         public Form_SourceCode()
@@ -17,6 +18,7 @@ namespace WIPS
             InitializeComponent();
         }
 
+        //add an instruction line
         public void addInstruction(String code, String opcode, String[] operands)
         {
             rtb_code.AppendText(code + "\t" + opcode+" ");
@@ -31,6 +33,8 @@ namespace WIPS
         {
             rtb_code.Clear();
         }
+
+        //reset this winform
         public void reset()
         {
             clearScreen();

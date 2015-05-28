@@ -50,8 +50,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tbpanel);
-            this.splitContainer1.Size = new System.Drawing.Size(590, 398);
-            this.splitContainer1.SplitterDistance = 77;
+            this.splitContainer1.Size = new System.Drawing.Size(372, 240);
+            this.splitContainer1.SplitterDistance = 48;
             this.splitContainer1.TabIndex = 0;
             // 
             // rt_instructions
@@ -62,7 +62,7 @@
             this.rt_instructions.Location = new System.Drawing.Point(0, 0);
             this.rt_instructions.Name = "rt_instructions";
             this.rt_instructions.ReadOnly = true;
-            this.rt_instructions.Size = new System.Drawing.Size(77, 398);
+            this.rt_instructions.Size = new System.Drawing.Size(48, 240);
             this.rt_instructions.TabIndex = 0;
             this.rt_instructions.Text = "";
             this.rt_instructions.WordWrap = false;
@@ -70,28 +70,31 @@
             // tbpanel
             // 
             this.tbpanel.AutoScroll = true;
+            this.tbpanel.AutoSize = true;
             this.tbpanel.BackColor = System.Drawing.Color.Black;
             this.tbpanel.ColumnCount = 1;
-            this.tbpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 509F));
+            this.tbpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tbpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbpanel.Location = new System.Drawing.Point(0, 0);
             this.tbpanel.Name = "tbpanel";
             this.tbpanel.RowCount = 1;
-            this.tbpanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 398F));
-            this.tbpanel.Size = new System.Drawing.Size(509, 398);
+            this.tbpanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tbpanel.Size = new System.Drawing.Size(320, 240);
             this.tbpanel.TabIndex = 0;
             // 
             // Form_Cycles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(590, 398);
+            this.ClientSize = new System.Drawing.Size(372, 240);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form_Cycles";
             this.Text = "Cycles";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);

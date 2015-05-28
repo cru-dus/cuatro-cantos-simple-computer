@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace WIPS
 {
+    //winform for the register values
     public partial class Form_Registers : Form
     {
+
         public Form_Registers()
         {
             InitializeComponent();

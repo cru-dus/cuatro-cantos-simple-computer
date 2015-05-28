@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace WIPS
 {
+    //unused class. suppposed to be used for implementing the instructions
     class Register
     {
         private byte value;
         private byte binCode;
         private Boolean available;
-        private String accessLog = "";
-        
 
         public Register()
         {
@@ -40,9 +39,9 @@ namespace WIPS
             return this.available;
         }
 
-        public String getBinCode()
+        public static String getEightBitBinCode(int bincode)
         {
-            String s = Convert.ToString(this.binCode, 2);
+            String s = Convert.ToString(bincode, 2);
             if (s.Length > 8) s = s.Substring(s.Length - 8, 8);
             else if (s.Length < 8)
             {

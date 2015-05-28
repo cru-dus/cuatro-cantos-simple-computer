@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace WIPS
 {
+    //WinForm for the console
     public partial class Form_Console : Form
     {
         private const String suffix = "CC-MiniCom >> ";
@@ -21,11 +22,13 @@ namespace WIPS
             addMessage("Welcome to our mini-computer!");
         }
 
+        //add a message to the console
         public void addMessage(String message)
         {
             cmd.AppendText(message + "\n" + suffix);
         }
 
+        //reset this form
         public void reset()
         {
             cmd.Clear();

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace WIPS
 {
+    //win form for the pipeline
     public partial class Form_Pipeline : Form
     {
         public Form_Pipeline()
@@ -17,6 +18,7 @@ namespace WIPS
             InitializeComponent();
         }
 
+        //reset this winform
         public void reset()
         {
             //reset labels

@@ -72,7 +72,7 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeyDisplayString = "CTRL+O";
+            this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.newToolStripMenuItem.Text = "&Open File";
@@ -106,14 +106,15 @@
             this.singleStepToolStripMenuItem.Name = "singleStepToolStripMenuItem";
             this.singleStepToolStripMenuItem.ShortcutKeyDisplayString = "F7";
             this.singleStepToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.singleStepToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.singleStepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.singleStepToolStripMenuItem.Text = "Single Step";
             this.singleStepToolStripMenuItem.Click += new System.EventHandler(this.singleStepToolStripMenuItem_Click);
             // 
             // multipleStepToolStripMenuItem
             // 
+            this.multipleStepToolStripMenuItem.Enabled = false;
             this.multipleStepToolStripMenuItem.Name = "multipleStepToolStripMenuItem";
-            this.multipleStepToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.multipleStepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.multipleStepToolStripMenuItem.Text = "Multiple Step";
             // 
             // wiToolStripMenuItem
@@ -129,21 +130,21 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.cascadeToolStripMenuItem.Text = "Cascade";
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cascadeToolStripMenuItem.Text = "&Cascade";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
             // 
             // tileToolStripMenuItem
             // 
             this.tileToolStripMenuItem.Name = "tileToolStripMenuItem";
-            this.tileToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.tileToolStripMenuItem.Text = "Tile";
+            this.tileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileToolStripMenuItem.Text = "&Tile";
             this.tileToolStripMenuItem.Click += new System.EventHandler(this.tileToolStripMenuItem_Click);
             // 
             // arraToolStripMenuItem
             // 
             this.arraToolStripMenuItem.Name = "arraToolStripMenuItem";
-            this.arraToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.arraToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.arraToolStripMenuItem.Text = "Arrange Icons";
             this.arraToolStripMenuItem.Click += new System.EventHandler(this.arraToolStripMenuItem_Click);
             // 

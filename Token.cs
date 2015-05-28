@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WIPS
 {
+    //class for the tokens
     class Token
     {
         private String token;
@@ -20,6 +21,7 @@ namespace WIPS
             
         }
 
+        //constructor for data
         public Token(byte token, String classification)
         {
             this.token = token.ToString();
@@ -28,6 +30,14 @@ namespace WIPS
             {
                 this.code = Convert.ToString(token, 2);
             }
+        }
+
+        //constructor for label
+        public Token(String token, String classification, int x)
+        {
+            this.token = token;
+            this.classification = classification;
+            this.code = Register.getEightBitBinCode(x);
         }
 
         public String getToken()

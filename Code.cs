@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace WIPS
 {
-    class Code
+    //class for identifying binary codes
+    public class Code
     {
         private const String DATA_TRANSFER = "0001";
         private const String ARITHMETIC = "0010";

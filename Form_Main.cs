@@ -27,13 +27,12 @@ namespace WIPS
         private String sourceCode;
         private Form_Console console;
         private LinkedList<Token> classifiedTokens;
-        private LinkedList<Command> commands; // linked list for each command line (object)
-        private LinkedList<Command> process = null;
-        private Boolean toContinue;  // linked list for each token (object)
-        private Boolean[] stateFlags = new Boolean[3]; //[0]Fetch [1]Decode [2]Execute
-        private int[] hazards = new int[3];
-        private int instructionPointer = 0; //index  the next instruction
-
+        private LinkedList<Command> commands; //list for instructions 
+        private LinkedList<Command> process = null; //list for instructions being processed
+        private Boolean toContinue; //flag for processing
+        private Boolean[] stateFlags = new Boolean[3]; //flags for [0]Fetch [1]Decode [2]Execute
+        private int instructionPointer = 0; //index  of the next instruction
+        private Dictionary<String, int> labels; //structure for all labels
 
         private void initializeChildWindows()
         {
@@ -75,16 +74,28 @@ namespace WIPS
                 {
                     using (StreamReader sr = new StreamReader(theDialog.FileName))
                     {
-                        
+                        //re-initialized lists
                         classifiedTokens = new LinkedList<Token>();
                         classifiedTokens.Clear();
                         commands = new LinkedList<Command>();
                         commands.Clear();
+
+                        //read file
                         sourceCode = await sr.ReadToEndAsync();
+
+                        //tokenize
                         classifyTokens(sourceCode.Split('\n', '\r'));
+
+                        //parse tokens
                         parse();
+
+                        //reset source screen
                         source.clearScreen();
+
+                        //display source code and binary codes
                         displayCommands();
+
+                        //run simulator
                         simulate();
                     }
                 }
@@ -98,12 +109,12 @@ namespace WIPS
 
         private void cascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
+            this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade); //cascade child windows
         }
 
         private void tileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
+            this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical); //tile child windows vertically
         }
 
         private void arraToolStripMenuItem_Click(object sender, EventArgs e)
@@ -111,7 +122,7 @@ namespace WIPS
             this.LayoutMdi(System.Windows.Forms.MdiLayout.ArrangeIcons);
         }
 
-        //Tokenize each input element and store each of them as object
+        //Tokenize each input element and store each of them to the list
         private void classifyTokens(String[] lines)
         {
             console.addMessage("Tokenizing...");
@@ -124,10 +135,11 @@ namespace WIPS
                 {
                     if (toContinue)
                     {
-                        tokens[i] = tokens[i].Trim();
+                        tokens[i] = tokens[i].Trim(); //remove trailing/leading spaces
                         if (tokens[i].Equals("")) continue;
                         switch (tokens[i])
                         {
+                            //valid keywords
                             case "LOD": case "STR": case "SAV":
                             case "INC": case "DEC": case "ADD":
                             case "SUB": case "MUL": case "DIV":
@@ -143,13 +155,33 @@ namespace WIPS
                             //Default case
                             default:
                                 byte val;
-                                if(byte.TryParse(tokens[i], out val)){
+                                //check for data/integer value
+                                if (byte.TryParse(tokens[i], out val))
+                                {
                                     classifiedTokens.AddLast(new Token(val, "DATA"));
                                     break;
                                 }
-                                toContinue = false;
-                                console.addMessage("Invalid token: " + tokens[i]);
-                                break;
+                                //check for label values
+                                else if (tokens[i][tokens[i].Length - 1] == ':')
+                                {
+                                    //Label name example -> label:
+                                   
+                                    classifiedTokens.AddLast(new Token(tokens[i], "LABEL NAME", x));
+                                    break;
+                                }
+                                else if (tokens[i][0] == ':')
+                                {
+                                    //goto label example -> FLY :label
+                                    classifiedTokens.AddLast(new Token(tokens[i], "LABEL", 0));
+                                    break;
+                                }
+                                else
+                                {
+                                    //unidentified token
+                                    toContinue = false; //unset flag
+                                    console.addMessage("Invalid token " + tokens[i] + "  at line number "+x+".");
+                                    break;
+                                }
                         }
                     }
                 }
@@ -158,23 +190,24 @@ namespace WIPS
             
         }
 
-        //Initialize command objects from tokenized elements
-        //edit loop jumps
+        //Initialize Command objects from tokenized elements
         private void parse()
         {
             if (toContinue)
             {
                 console.addMessage("Parsing...");
+                labels = new Dictionary<string, int>();
+                labels.Clear();
                 for (int i = 0; i < classifiedTokens.Count; i++)
                 {
                     if(!toContinue)return;
                     Token t = classifiedTokens.ElementAt(i);
                     switch (t.getClassification())
                     {
-                        case "DATA TRANSFER":
+                        case "DATA TRANSFER": 
                             switch (t.getToken())
                             {
-                                case "LOD":
+                                case "LOD": // LOD <GEN PUR REG> <MEM ADD REG>
                                     if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("GENERAL PURPOSE REGISTER"))
                                     {
                                         if (classifiedTokens.ElementAt(i + 2).getClassification().Equals("ADDRESS REGISTER"))
@@ -182,7 +215,7 @@ namespace WIPS
                                             String code = t.getCode() +
                                                 classifiedTokens.ElementAt(i+1).getCode() +
                                                 classifiedTokens.ElementAt(i+2).getCode();
-                                            commands.AddLast(new Command(t.getToken(), 
+                                                commands.AddLast(new Command(t.getToken(), 
                                                 classifiedTokens.ElementAt(i+1).getToken(), 
                                                 classifiedTokens.ElementAt(i+2).getToken(),
                                                 code
@@ -200,7 +233,7 @@ namespace WIPS
                                         toContinue = false;
                                     }
                                     break;
-                                case "SAV":
+                                case "SAV": // SAV <GEN PUR REG> <DATA>
                                     if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("GENERAL PURPOSE REGISTER"))
                                     {
                                         if (classifiedTokens.ElementAt(i + 2).getClassification().Equals("DATA"))
@@ -208,7 +241,7 @@ namespace WIPS
                                             String code = t.getCode() +
                                                 classifiedTokens.ElementAt(i+1).getCode() +
                                                 classifiedTokens.ElementAt(i+2).getCode();
-                                            commands.AddLast(new Command(t.getToken(), 
+                                                commands.AddLast(new Command(t.getToken(), 
                                                 classifiedTokens.ElementAt(i+1).getToken(), 
                                                 classifiedTokens.ElementAt(i+2).getToken(),
                                                 code
@@ -226,7 +259,7 @@ namespace WIPS
                                         toContinue = false;
                                     }
                                     break;
-                                case "STR":
+                                case "STR": // STR <MEM ADD REG> <GEN PUR REG>
                                     if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("ADDRESS REGISTER"))
                                     {
                                         if (classifiedTokens.ElementAt(i + 2).getClassification().Equals("GENERAL PURPOSE REGISTER"))
@@ -234,7 +267,7 @@ namespace WIPS
                                             String code = t.getCode() +
                                                 classifiedTokens.ElementAt(i+1).getCode() +
                                                 classifiedTokens.ElementAt(i+2).getCode();
-                                            commands.AddLast(new Command(t.getToken(), 
+                                                commands.AddLast(new Command(t.getToken(), 
                                                 classifiedTokens.ElementAt(i+1).getToken(), 
                                                 classifiedTokens.ElementAt(i+2).getToken(),
                                                 code
@@ -249,12 +282,12 @@ namespace WIPS
                                     else
                                     {
                                         console.addMessage("Memory address register expected after " + t.getToken());
-                                        console.addMessage("FOUND: " + classifiedTokens.ElementAt(i + 1).getToken());
                                         toContinue = false;
                                     }
                                     break;
                             }
                             break;
+                            //<OPERATION> <GEN PUR REG> <GEN PUR REG>
                         case "ARITHMETIC":
                         case "COMPARISON":
                         case "LOGIC":
@@ -283,28 +316,42 @@ namespace WIPS
                             }
                             break;
 
-                        case "PROGRAM FLOW":
-                            //LABEL for FLY INSTRUCTION IS NOT YET CHECKED HERE (NOT WORKING)
-                            if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("REGISTER"))
+                        case "PROGRAM FLOW": //<PROG FLOW> <LABEL>
+                            if (classifiedTokens.ElementAt(i + 1).getClassification().Equals("LABEL"))
                             {
-                                String a = classifiedTokens.ElementAt(i).getCode();
+                                String a = t.getCode();
                                 String b = classifiedTokens.ElementAt(i + 1).getCode();
-                                String binaryCode = a + b;
+                                String binaryCode = a + b + "000000000";
 
                                 commands.AddLast(new Command(t.getToken(), classifiedTokens.ElementAt(i + 1).getToken(), null, binaryCode));
                             }
                             else
                             {
-                                //prompt error: label name expected after tokens[i]
-                                console.addMessage("Label name expected after: " + classifiedTokens.ElementAt(i));
+                                console.addMessage("Label expected after: " + classifiedTokens.ElementAt(i));
                             }
                             break;
+                        case "LABEL NAME": //<LABEL NAME>
+                            //check existence of label
+                            if (labels.ContainsKey(t.getToken()))
+                            {
+                                console.addMessage("Label name " + t.getToken().Substring(0, t.getToken().Length-1) + " cannot be declared again.");
+                                toContinue = false;
+                                break;
+                            }
+                            else
+                            {
+                                //add label and instruction it points which is the one next to this
+                                labels.Add(t.getToken(), commands.Count);
+                                break;
+                            }
+                            
                     }
                 }
                 console.addMessage("Parsing ended.");
             }
         }
 
+        //Start simulation by initializing one instruction
         private void simulate()
         {
             if (toContinue)
@@ -327,12 +374,13 @@ namespace WIPS
             }
         }
 
+        //draw the current cycle
         private void drawCycles(LinkedList<Command> current)
         {
             cycles.addColumn(current);
         }
 
-        //Display the command objects
+        //Display the instructions
         private void displayCommands()
         {
             if(toContinue)
@@ -344,6 +392,7 @@ namespace WIPS
             }
         }
 
+        //reset FDE flags
         private void resetStateFlags()
         {
             for (int i = 0; i < 3; i++)
@@ -352,6 +401,7 @@ namespace WIPS
             }
         }
 
+        //reset all child windows
         private void resetAll()
         {
             //reset all windows
@@ -360,11 +410,9 @@ namespace WIPS
             source.reset();
             pipeline.reset();
 
-
-            //clear all tables
-
             //clear all lists
             process = null;
+            labels.Clear();
 
             //reset all variables
             instructionPointer = 0;
@@ -372,14 +420,9 @@ namespace WIPS
             console.addMessage("Reset successful!");
         }
 
+        //simulate next cycle
         private void singleStepToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*
-             * update states of all running instructions
-             *  -check if to stall or to continue to next state
-             * add next instruction to the process list 
-             
-             */
             if (process != null) //if process is initialized
             {
                 pipeline.reset();
@@ -452,6 +495,7 @@ namespace WIPS
             }
         }
 
+        //unlock the F/D/E flag
         private void unlockStateFlag(int state)
         {
             int flag = flagToBeUsed(state);
@@ -461,6 +505,7 @@ namespace WIPS
             }
         }
 
+        //lock the F/D/E flag
         private void lockStateFlag(int state)
         {
             int flag = flagToBeUsed(state);
@@ -469,7 +514,9 @@ namespace WIPS
                 stateFlags[flag] = false;
             }
         }
+        
 
+        //identify which among F/D/E flag will be used
         private int flagToBeUsed(int state)
         {
             switch (state)
@@ -487,11 +534,13 @@ namespace WIPS
             return -1;
         }
 
+        //full reset
         private void resetCCMiniComToolStripMenuItem_Click(object sender, EventArgs e)
         {
             resetAll();
         }
 
+        //exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
